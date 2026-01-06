@@ -23,6 +23,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Text
@@ -30,7 +31,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,6 +41,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vector.midtronicstest.ui.theme.MidtronicsTestTheme
+import com.vector.midtronicstest.ui.theme.githubIconResource
+import com.vector.midtronicstest.ui.theme.linkedinIconResource
 import com.vector.midtronicstest.ui.theme.profilePictureResource
 import com.vector.midtronicstest.ui.theme.schoolIconResource
 import com.vector.midtronicstest.ui.theme.workIconResource
@@ -122,9 +127,70 @@ private fun ProfileScreen(
 
             WorkExperienceSummary()
 
+            Spacer(Modifier.height(12.dp))
+
+            SocialsLinks()
+
         }
     }
 
+}
+
+@Composable
+private fun SocialsLinks(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "My socials",
+            fontSize = 20.sp,
+            color = Color.Gray
+        )
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            SocialIcon(
+                icon = linkedinIconResource,
+                url = "https://www.linkedin.com/in/victor-tijerina-g",
+                contentDescription = "Linkedin profile"
+            )
+
+            SocialIcon(
+                icon = githubIconResource,
+                url = "https://github.com/Vectorr22",
+                contentDescription = "Github profile"
+            )
+
+        }
+    }
+}
+
+@Composable
+private fun SocialIcon(
+    icon: Int,
+    url: String,
+    contentDescription: String
+) {
+    val uriHandler = LocalUriHandler.current 
+
+    IconButton(
+        onClick = { uriHandler.openUri(url) } 
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = contentDescription,
+            tint = Color.Unspecified,
+            modifier = Modifier.size(60.dp)
+        )
+    }
 }
 
 @Composable

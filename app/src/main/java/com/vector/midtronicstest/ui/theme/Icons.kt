@@ -11,3 +11,7 @@ val profilePictureResource = R.drawable.profile_pic
 val schoolIconResource = R.drawable.school
 
 val workIconResource = R.drawable.work
+
+val githubIconResource = R.drawable.github
+
+val linkedinIconResource = R.drawable.linkedin
